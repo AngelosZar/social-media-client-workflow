@@ -8,9 +8,20 @@ jest.mock('../../src/js/storage', () => ({
 }));
 
 describe('Logout function', () => {
-    it('should remove the access token from browser storage', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('should remove the access token and profile from browser storage', () => {
         logout();
         expect(storage.remove).toHaveBeenCalledWith('token');
         expect(storage.remove).toHaveBeenCalledWith('profile');
+        expect(storage.remove).toHaveBeenCalledTimes(2);
+    });
+
+    it('should not throw errors when storage is already empty', () => {
+        // if no token or/and  profile
+        storage.remove.mockImplementation(() => {});
+        expect(() => logout()).not.toThrow();
     });
 });
