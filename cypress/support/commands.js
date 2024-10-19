@@ -96,7 +96,10 @@ Cypress.Commands.add(
         cy.wait('@getProfile').its('response.statusCode').should('eq', 200);
 
         // check if token is in localStorage
-        cy.window().its('localStorage.token').should('eq', 'accessToken');
+        cy.window().then((win) => {
+            const storedToken = win.localStorage.getItem('token');
+            expect(storedToken).to.equal('accessToken');
+        });
     }
 );
 
