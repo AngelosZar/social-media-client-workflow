@@ -100,8 +100,74 @@ Cypress.Commands.add(
     }
 );
 
-// Unsuccessful login
-// Cypress.Commands.add('loginFail', () => {});
+Cypress.Commands.add(
+    'loginFail',
+    (wrongEmail = 'wrong@noroff.no', wrongPassword = 'wrong_password123') => {
+        const apiUrl = Cypress.env('API_BASE_URL');
+
+        // api mock
+        cy.intercept('POST', `${apiUrl}/social/auth/login`, {
+            statusCode: 401,
+            body: {
+                error: 'Invalid credentials',
+            },
+        }).as('failedLoginRequest');
+
+        // register modal
+        cy.get('#registerModal').should('be.visible');
+        cy.wait(1000);
+        cy.get("#registerForm button[data-auth='login']").click();
+
+        // login modal
+        cy.get('#loginModal').should('be.visible');
+        cy.wait(1000);
+
+        // test fake credentials
+        cy.get('#loginForm #loginEmail').type(wrongEmail);
+        cy.get('#loginForm #loginPassword').type(wrongPassword);
+        cy.wait(1000);
+
+        // submit form
+        cy.get("#loginForm button[type='submit'].btn-success").click();
+        cy.log('Login form submitted');
+
+        // wait response and alert
+        cy.wait('@failedLoginRequest', { timeout: 1000 }).then(
+            (interception) => {
+                if (interception) {
+                    cy.log('Intercepted failed login request');
+                    expect(interception.response.statusCode).to.equal(401);
+
+                    //    alert modal
+                    cy.window().then((win) => {
+                        const alertElement = win.document.createElement('div');
+                        alertElement.id = 'cypress-alert';
+                        alertElement.style.position = 'fixed';
+                        alertElement.style.top = '20px';
+                        alertElement.style.left = '50%';
+                        alertElement.style.transform = 'translateX(-50%)';
+                        alertElement.style.backgroundColor = 'red';
+                        alertElement.style.color = 'white';
+                        alertElement.style.padding = '10px';
+                        alertElement.style.borderRadius = '5px';
+                        alertElement.style.zIndex = '9999';
+                        alertElement.textContent =
+                            'Login failed: Invalid credentials\nPlease try again';
+                        win.document.body.appendChild(alertElement);
+
+                        setTimeout(() => {
+                            alertElement.remove();
+                        }, 5000);
+                    });
+                } else {
+                    throw new Error('Failed login request was not intercepted');
+                }
+            }
+            // sshould modal be visible again  ?
+        );
+    }
+);
+
 //
 // Successful logout
 // Cypress.Commands.add('logout', () => {  })
