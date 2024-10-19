@@ -6,18 +6,18 @@ Main Dependencies
 
 Development Dependencies
 
-1.@babel/core (v7.25.8) and @babel/preset-env (v7.25.8)
-2.@eslint/js (v9.12.0) and eslint (v9.12.0)
-3.cypress (v13.15.0) and eslint-plugin-cypress (v4.0.0)
-4.eslint-config-prettier (v9.1.0) and eslint-plugin-prettier (v5.2.1)
-5.eslint-plugin-jest (v28.8.3)
-6.globals (v15.11.0)
-7.husky (v9.1.6)
-8.jest (v29.7.0)
-9.lint-staged (v15.2.10)
-10.live-server (v1.2.2)
-11.prettier (v3.3.3)
-12.sass (v1.79.5)
+1. @babel/core (v7.25.8) and @babel/preset-env (v7.25.8)
+2. @eslint/js (v9.12.0) and eslint (v9.12.0)
+3. cypress (v13.15.0) and eslint-plugin-cypress (v4.0.0)
+4. eslint-config-prettier (v9.1.0) and eslint-plugin-prettier (v5.2.1)
+5. eslint-plugin-jest (v28.8.3)
+6. globals (v15.11.0)
+7. husky (v9.1.6)
+8. jest (v29.7.0)
+9. lint-staged (v15.2.10)
+10. live-server (v1.2.2)
+11. prettier (v3.3.3)
+12. sass (v1.79.5)
 
 Scripts
 
