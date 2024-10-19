@@ -10,6 +10,6 @@ module.exports = defineConfig({
             userPassword: 'aVeryrandomPassword',
             API_BASE_URL: 'https://nf-api.onrender.com/api/v1',
         },
-        defaultCommandTimeout: 1000,
+        // defaultCommandTimeout: 1000,
     },
 });
