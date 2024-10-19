@@ -1,45 +1,51 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
+import jestPlugin from 'eslint-plugin-jest';
+import cypressPlugin from 'eslint-plugin-cypress';
 
 export default [
+    pluginJs.configs.recommended,
+    {
+        files: ['**/*.js'],
+        languageOptions: {
+            ecmaVersion: 'latest',
+            sourceType: 'module',
+            globals: {
+                ...globals.browser,
+                ...globals.es2021,
+                ...globals.node,
+            },
+        },
+    },
     {
         files: ['**/*.test.js'],
+        plugins: {
+            jest: jestPlugin,
+        },
         languageOptions: {
             globals: {
                 ...globals.jest,
             },
-        },
-        plugins: {
-            jest: jestPlugin,
         },
         rules: {
             ...jestPlugin.configs.recommended.rules,
         },
     },
     {
-        env: {
-            browser: true,
-            es2021: true,
-            node: true,
+        files: ['**/*.cy.js'],
+        plugins: {
+            cypress: cypressPlugin,
         },
-        extends: 'eslint:recommended',
-        overrides: [
-            {
-                files: ['**/*.cy.js'],
-                env: { 'cypress/globals': true },
-                plugins: ['cypress'],
-                extends: ['plugin:cypress/recommended'],
-                rules: {
-                    'cypress/no-unnecessary-waiting': 'off',
-                    'no-unused-vars': 'off',
-                },
+        languageOptions: {
+            globals: {
+                ...globals.browser,
+                ...cypressPlugin.environments.globals,
             },
-        ],
-        parserOptions: {
-            ecmaVersion: 'latest',
-            sourceType: 'module',
+        },
+        rules: {
+            ...cypressPlugin.configs.recommended.rules,
+            'cypress/no-unnecessary-waiting': 'off',
+            'no-unused-vars': 'off',
         },
     },
-    { languageOptions: { globals: globals.browser } },
-    pluginJs.configs.recommended,
 ];
