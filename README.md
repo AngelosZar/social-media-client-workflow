@@ -21,16 +21,16 @@ Development Dependencies
 
 Scripts
 
-build: Compiles Sass files to CSS.
-start: Watches Sass files for changes and starts a live server.
-test: Runs both unit tests and end-to-end tests.
-unit-test: Runs Jest unit tests.
-test-e2e: Opens Cypress for interactive end-to-end testing.
-test-e2e-cli: Runs Cypress tests in CLI mode.
-lint: Lints JavaScript files using ESLint.
-lint-fix: Lints and automatically fixes JavaScript files.
-format: Formats JavaScript files using Prettier.
-prepare: Installs Husky hooks.
+-build: Compiles Sass files to CSS.
+-start: Watches Sass files for changes and starts a live server.
+-test: Runs both unit tests and end-to-end tests.
+-unit-test: Runs Jest unit tests.
+-test-e2e: Opens Cypress for interactive end-to-end testing.
+-test-e2e-cli: Runs Cypress tests in CLI mode.
+-lint: Lints JavaScript files using ESLint.
+-lint-fix: Lints and automatically fixes JavaScript files.
+-format: Formats JavaScript files using Prettier.
+-prepare: Installs Husky hooks.
 
 Process :
 
